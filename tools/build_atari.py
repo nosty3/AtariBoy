@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 import pathlib,subprocess,sys,shutil,binascii
-r=pathlib.Path(__file__).resolve().parent
-subprocess.run([sys.executable,str(r/'build_font.py')],check=True)
+r=pathlib.Path(__file__).resolve().parents[1]
+subprocess.run([sys.executable,str(r/'tools/build_font.py')],check=True)
 g=r/'generated';g.mkdir(exist_ok=True)
-subprocess.run([sys.executable,str(r/'build_menu_font.py')],check=True)
-subprocess.run([sys.executable,str(r/'build_title.py')],check=True)
-subprocess.run([sys.executable,str(r/'build_config.py')],check=True)
+subprocess.run([sys.executable,str(r/'tools/build_menu_font.py')],check=True)
+subprocess.run([sys.executable,str(r/'tools/build_title.py')],check=True)
+subprocess.run([sys.executable,str(r/'tools/build_config.py')],check=True)
 m=shutil.which(sys.argv[1]) or str(pathlib.Path(sys.argv[1]).resolve())
 def asm(n,ext='bin'):
  subprocess.run([m,str(r/'atari'/f'{n}.asm'),f'-o:{g/n}.{ext}',f'-l:{g/n}.lst',f'-t:{g/n}.lab'],check=True)
@@ -17,7 +17,7 @@ from pack_atari import pack,unpack
 images={}
 for standard,hz,lines in [('ntsc',60,262),('pal',50,312)]:
  (g/'timing_config.asm').write_text(f'TV_HZ = {hz}\nLAST_VCOUNT = {lines//2-1}\n')
- subprocess.run([sys.executable,str(r/'build_audio_atari.py')]+(['--ntsc'] if standard=='ntsc' else []),check=True)
+ subprocess.run([sys.executable,str(r/'tools/build_audio_atari.py')]+(['--ntsc'] if standard=='ntsc' else []),check=True)
  x=asm('program','xex');packed=pack(x);assert unpack(packed)==x
  images[standard]=(x,packed)
  for ext in ['xex','lst','lab']:

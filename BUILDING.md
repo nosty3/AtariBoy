@@ -49,7 +49,7 @@ under `out`, `generated` and `dual/selector/generated`, and are ignored by Git.
 `BUILD_DIR`, `SELECTOR_BUILD_DIR` and `A8_BUILD_DIR` can override compiler output
 directories. Additional arguments are forwarded to CMake for all three builds.
 
-For an emulator-only development build, use `bash build.sh`. With picotool
+For an emulator-only development build, use `bash tools/build.sh`. With picotool
 available, the SDK also produces `out/atariboy/atariboy.uf2`. The published
 release is the combined image produced by `dual/build.sh`.
 
@@ -68,12 +68,13 @@ power cycles and must not own the filesystem concurrently.
 
 | Location | Purpose |
 |---|---|
-| `main.cpp` | RP2040 cartridge bus and buffer publication |
-| `app.cpp`, UI modules | Application state, menus and emulation scheduling |
-| `engine.c`, `vendor/` | Peanut-GB core and minigb APU |
-| `audio.c`, `cadence.hpp` | PCM generation, resampling and frame scheduling |
-| `storage/`, `saves.c`, `settings.cpp` | Flash filesystem, saved states and settings |
-| `atari/`, `build_*.py`, `pack_atari.py` | Atari loaders, display lists and audio players |
+| `src/main.cpp` | RP2040 cartridge bus and buffer publication |
+| `src/app.cpp`, UI modules | Application state, menus and emulation scheduling |
+| `src/engine.c`, `vendor/` | Peanut-GB core and minigb APU |
+| `src/audio.c`, `src/cadence.hpp` | PCM generation, resampling and frame scheduling |
+| `storage/`, `src/saves.c`, `src/settings.cpp` | Flash filesystem, saved states and settings |
+| `atari/`, `tools/` | Atari loaders, display lists and audio players |
+| `config/`, `boards/`, `cmake/` | Display configuration, board definitions and linker layout |
 | `dual/` | Boot selector, A8PicoCart application and UF2 merger |
 | `tests/native/` | Self-contained host regression tests |
 | `licenses/`, `assets/FONT-NOTICE.txt` | Component attribution and supplied notices |
@@ -83,5 +84,5 @@ for modifications; the firmware build uses `dual/a8picocart/rom.h`. Assemble the
 menu with MADS and regenerate that byte array if changing the embedded menu.
 The selector build derives its handover vectors from this array.
 
-See `MEMORY-LAYOUT.md`, `STATE-FORMAT.md`, `DIAGNOSTYKA.md`,
+See `MEMORY-LAYOUT.md`, `STATE-FORMAT.md`, `DIAGNOSTICS.md`,
 `dual/ARCHITEKTURA.md` and `tests/README.md` for development details.

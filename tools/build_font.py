@@ -4,7 +4,7 @@ Pixel codes: 00 black outline, 01 transparent, 11 white ink.
 The outline is computed here, never on RP2040 during emulation.
 """
 from pathlib import Path
-r=Path(__file__).resolve().parent
+r=Path(__file__).resolve().parents[1]
 source=(r/'assets/atari-font.fnt').read_bytes()
 assert len(source)==128*8
 out=bytearray()

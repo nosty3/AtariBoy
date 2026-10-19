@@ -12,10 +12,10 @@ project(atariboy LANGUAGES C CXX ASM)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
-add_executable(atariboy main.cpp settings.cpp options_ui.cpp app.cpp state_ui.cpp audio.c vendor/minigb_apu/minigb_apu.c engine.c video.cpp controls.cpp disk_optimize.c storage.c browser.cpp storage/flash_fs.c storage/fatfs_disk.c storage/msc_disk.c storage/usb_descriptors.c storage/fatfs/ff.c storage/fatfs/ffunicode.c storage/fatfs/diskio.c usb_mode.c saves.c osd.cpp sha256.c)
-set_source_files_properties(main.cpp settings.cpp options_ui.cpp app.cpp state_ui.cpp audio.c vendor/minigb_apu/minigb_apu.c engine.c video.cpp controls.cpp disk_optimize.c storage.c browser.cpp storage/flash_fs.c storage/fatfs_disk.c storage/msc_disk.c storage/usb_descriptors.c storage/fatfs/ff.c storage/fatfs/ffunicode.c storage/fatfs/diskio.c usb_mode.c saves.c osd.cpp sha256.c PROPERTIES COMPILE_OPTIONS "-O3;-Wall;-Wextra;-fstack-usage")
+add_executable(atariboy src/main.cpp src/settings.cpp src/options_ui.cpp src/app.cpp src/state_ui.cpp src/audio.c vendor/minigb_apu/minigb_apu.c src/engine.c src/video.cpp src/controls.cpp src/disk_optimize.c src/storage.c src/browser.cpp storage/flash_fs.c storage/fatfs_disk.c storage/msc_disk.c storage/usb_descriptors.c storage/fatfs/ff.c storage/fatfs/ffunicode.c storage/fatfs/diskio.c src/usb_mode.c src/saves.c src/osd.cpp src/sha256.c)
+set_source_files_properties(src/main.cpp src/settings.cpp src/options_ui.cpp src/app.cpp src/state_ui.cpp src/audio.c vendor/minigb_apu/minigb_apu.c src/engine.c src/video.cpp src/controls.cpp src/disk_optimize.c src/storage.c src/browser.cpp storage/flash_fs.c storage/fatfs_disk.c storage/msc_disk.c storage/usb_descriptors.c storage/fatfs/ff.c storage/fatfs/ffunicode.c storage/fatfs/diskio.c src/usb_mode.c src/saves.c src/osd.cpp src/sha256.c PROPERTIES COMPILE_OPTIONS "-O3;-Wall;-Wextra;-fstack-usage")
 target_link_libraries(atariboy PRIVATE pico_stdlib pico_multicore hardware_clocks hardware_vreg hardware_sync hardware_flash tinyusb_device tinyusb_board pico_unique_id)
-target_include_directories(atariboy PRIVATE . storage storage/fatfs)
+target_include_directories(atariboy PRIVATE . src storage storage/fatfs)
 # This application needs no C++ runtime library. Link with the C driver so an
 # embedded libstdc++ archive is not required just to use C++ syntax and uint32_t.
 set_target_properties(atariboy PROPERTIES LINKER_LANGUAGE C)
@@ -29,11 +29,11 @@ target_compile_options(atariboy PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fno-threadsaf
 target_compile_definitions(atariboy PRIVATE PICO_STACK_SIZE=0x1000 PICO_MALLOC_PANIC=0 PICO_USE_OPTIMISTIC_SBRK=0)
 pico_set_binary_type(atariboy copy_to_ram)
 # Retain SDK RAM startup but opt selected cold objects into XIP.
-pico_set_linker_script(atariboy ${CMAKE_CURRENT_LIST_DIR}/memmap_hybrid.ld)
+pico_set_linker_script(atariboy ${CMAKE_CURRENT_LIST_DIR}/cmake/memmap_hybrid.ld)
 
 # Cold UI/state routines execute from XIP. Prefer compact code here; retain
 # -O3 for emulation/video and existing explicit COM optimization settings.
-set_source_files_properties(state_ui.cpp saves.c sha256.c browser.cpp disk_optimize.c storage.c storage/fatfs/ff.c storage/flash_fs.c storage/fatfs_disk.c storage/msc_disk.c usb_mode.c PROPERTIES COMPILE_OPTIONS "-Os;-Wall;-Wextra;-fstack-usage")
+set_source_files_properties(src/state_ui.cpp src/saves.c src/sha256.c src/browser.cpp src/disk_optimize.c src/storage.c storage/fatfs/ff.c storage/flash_fs.c storage/fatfs_disk.c storage/msc_disk.c src/usb_mode.c PROPERTIES COMPILE_OPTIONS "-Os;-Wall;-Wextra;-fstack-usage")
 
-set_source_files_properties(audio.c vendor/minigb_apu/minigb_apu.c PROPERTIES COMPILE_OPTIONS "-Os;-Wall;-Wextra;-fstack-usage")
+set_source_files_properties(src/audio.c vendor/minigb_apu/minigb_apu.c PROPERTIES COMPILE_OPTIONS "-Os;-Wall;-Wextra;-fstack-usage")
 target_compile_definitions(atariboy PRIVATE MINIGB_APU_AUDIO_FORMAT_S16SYS AUDIO_SAMPLE_RATE=18635)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 from PIL import Image
-r=Path(__file__).resolve().parent
+r=Path(__file__).resolve().parents[1]
 im=Image.open(r/'assets/title-logo.png').convert('RGB')
 assert im.size==(320,64)
 assert set(im.getdata())=={(0,0,0),(255,255,255)},'Logo must contain exactly black and white'

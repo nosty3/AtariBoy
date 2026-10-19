@@ -6,7 +6,7 @@ r="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 export BUILD_DIR="${BUILD_DIR:-$r/out/atariboy}"
 selector_build="${SELECTOR_BUILD_DIR:-$r/out/selector}"
 a8_build="${A8_BUILD_DIR:-$r/out/a8picocart}"
-bash "$r/build.sh" "$@"
+bash "$r/tools/build.sh" "$@"
 python3 "$r/dual/build_selector.py" "${MADS:-mads}"
 for part in selector a8picocart; do
  if [[ "$part" == selector ]]; then out="$selector_build"; else out="$a8_build"; fi

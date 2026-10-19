@@ -3,7 +3,7 @@
 These Linux tests compile production modules against small hardware stubs.
 They generate synthetic ROM data in a simulated flash image; no game download
 or proprietary ROM is required. GCC, G++ and Bash are needed. First run the
-firmware build (or `python3 build_atari.py /path/to/mads`) to generate headers.
+firmware build (or `python3 tools/build_atari.py /path/to/mads`) to generate headers.
 
 ```sh
 bash tests/native/run62.sh

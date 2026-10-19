@@ -1,6 +1,6 @@
 # SRAM and flash layout
 
-The authoritative section placement is in `memmap_hybrid.ld`.
+The authoritative section placement is in `cmake/memmap_hybrid.ld`.
 It is based on Pico SDK 2.1.1's copy-to-RAM linker script and preserves the SDK
 startup copy symbols, while placing selected code and constants in `.cold_xip`.
 

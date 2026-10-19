@@ -2,7 +2,7 @@
 """Rasterize Early GameBoy at its native 8px size, retaining Atari UI glyphs."""
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
-r=Path(__file__).resolve().parent
+r=Path(__file__).resolve().parents[1]
 font=ImageFont.truetype(str(r/'assets/early-gameboy.ttf'),8)
 data=bytearray((r/'assets/atari-font.fnt').read_bytes())
 assert len(data)==1024

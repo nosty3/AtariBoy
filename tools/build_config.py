@@ -2,8 +2,8 @@
 """Single build-time geometry setting shared by MADS and Pico C++."""
 import json
 from pathlib import Path
-r=Path(__file__).resolve().parent
-h=json.loads((r/'config.json').read_text())['display_rows']
+r=Path(__file__).resolve().parents[1]
+h=json.loads((r/'config/config.json').read_text())['display_rows']
 assert isinstance(h,int) and 64<=h<=120 and h%4==0
 (r/'generated/display_config.hpp').write_text(f'#pragma once\n#define A8_DISPLAY_ROWS {h}\n')
 # Center within the 240-line ANTIC display interval. Mode D doubles rows.
