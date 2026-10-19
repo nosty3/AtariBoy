@@ -1,0 +1,16 @@
+A8PicoCart — Robin Edwards / Electrotrains, 2023
+https://github.com/robinhedwards/A8PicoCart
+Reference revision: fb0b36137a969a71b9258841c46676701125699d
+
+Adapted files in storage/: flash_fs.c/h, fatfs_disk.c/h, msc_disk.c,
+usb_descriptors.c, tusb_config.h and fatfs/*. Directory sort semantics in
+browser.cpp and separate Atari/USB boot modes are based on this project.
+Original copyright and component notices are retained in the source files.
+The reviewed repository did not contain a root LICENSE file; do not describe
+all A8PicoCart code as MIT merely because TinyUSB or Peanut-GB is MIT.
+FatFs contains its own copyright and redistribution terms in ff.c/ff.h.
+
+This dual-boot package also includes the separately compiled upstream application
+in dual/a8picocart/, from https://github.com/ascrnet/A8PicoCart
+revision 092397bd6d6056e4c1e9652e380e8619fdaf2193.
+Integration changes are listed in dual/ARCHITEKTURA.md.

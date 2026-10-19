@@ -1,0 +1,12 @@
+/out/
+/generated/
+/dual/selector/generated/
+/verification/
+__pycache__/
+*.pyc
+*.[gG][bB]
+*.gbc
+*.gba
+*.sav
+*.uf2
+!/Build/atariboy-v090b-dual.uf2

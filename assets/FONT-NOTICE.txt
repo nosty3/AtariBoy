@@ -1,0 +1,6 @@
+Early GameBoy by Jimmy Campbell
+Source: https://www.dafont.com/early-gameboy.font
+Listed by the author on DaFont as 100% Free (checked 2026-10-14).
+Supplied TTF rasterized at native 8-pixel size into Atari screen-code order.
+Unmodified Atari graphical glyphs and UI icons retained.
+The OSD font and bitmap title logo are unchanged.
